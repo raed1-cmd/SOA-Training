@@ -2,7 +2,6 @@ package entities;
 
 import java.util.Objects;
 
-
 public class UniteEnseignement {
     private int code;
     private String domaine;
@@ -61,10 +60,33 @@ public class UniteEnseignement {
         this.semestre = semestre;
     }
 
-
+    // AJOUT : equals() doit toujours accompagner hashCode()
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UniteEnseignement)) return false;
+        UniteEnseignement that = (UniteEnseignement) o;
+        return code == that.code
+                && credits == that.credits
+                && semestre == that.semestre
+                && Objects.equals(domaine, that.domaine)
+                && Objects.equals(responsable, that.responsable);
+    }
 
     @Override
     public int hashCode() {
         return Objects.hash(getCode(), getDomaine(), getResponsable(), getCredits(), getSemestre());
+    }
+
+    // AJOUT : affichage lisible (utile pour les tests et les logs)
+    @Override
+    public String toString() {
+        return "UniteEnseignement{" +
+                "code=" + code +
+                ", domaine='" + domaine + '\'' +
+                ", responsable='" + responsable + '\'' +
+                ", credits=" + credits +
+                ", semestre=" + semestre +
+                '}';
     }
 }
